@@ -15,8 +15,8 @@ import java.util.stream.Stream
 class Kafka101App
 
 @Component
-class Producer(val template: KafkaTemplate<Int,String>) {
-    val faker: Faker = Faker.instance()
+class Producer(val template:KafkaTemplate<Int,String>) {
+    val faker:Faker = Faker.instance()
 
     @EventListener(ApplicationStartedEvent::class)
     fun generate() {
@@ -25,11 +25,11 @@ class Producer(val template: KafkaTemplate<Int,String>) {
         val quotes = Flux.fromStream(Stream.generate(faker.hobbit()::quote))
 
         Flux.zip(interval,quotes)
-            .map { it -> template.send("hobbit",faker.random().nextInt(101),it.t2) }
+            .map {it -> template.send("hobbit",faker.random().nextInt(101),it.t2)}
             .blockLast()
     }
 }
 
-fun main(args: Array<String>) {
+fun main(args:Array<String>) {
     runApplication<Kafka101App>(*args)
 }
