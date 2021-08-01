@@ -15,7 +15,7 @@ import java.util.stream.Stream
 class Kafka101App
 
 @Component
-class Producer(val template: KafkaTemplate<Int, String>) {
+class Producer(val template: KafkaTemplate<Int,String>) {
     val faker: Faker = Faker.instance()
 
     @EventListener(ApplicationStartedEvent::class)
@@ -24,8 +24,8 @@ class Producer(val template: KafkaTemplate<Int, String>) {
 
         val quotes = Flux.fromStream(Stream.generate(faker.hobbit()::quote))
 
-        Flux.zip(interval, quotes)
-            .map { it -> template.send("hobbit", faker.random().nextInt(101), it.t2) }
+        Flux.zip(interval,quotes)
+            .map { it -> template.send("hobbit",faker.random().nextInt(101),it.t2) }
             .blockLast()
     }
 }
