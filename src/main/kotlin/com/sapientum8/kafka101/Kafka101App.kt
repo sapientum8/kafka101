@@ -1,7 +1,6 @@
 package com.sapientum8.kafka101
 
 import com.github.javafaker.Faker
-import lombok.RequiredArgsConstructor
 import org.apache.kafka.clients.admin.NewTopic
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.Serdes
@@ -50,7 +49,7 @@ class Producer(val template:KafkaTemplate<Int,String>) {
         val quotes = Flux.fromStream(Stream.generate(faker.hobbit()::quote))
 
         Flux.zip(interval,quotes)
-            .map {it -> template.send("hobbit",faker.random().nextInt(101),it.t2)}
+            .map {template.send("hobbit",faker.random().nextInt(101),it.t2)}
             .blockLast()
     }
 }
