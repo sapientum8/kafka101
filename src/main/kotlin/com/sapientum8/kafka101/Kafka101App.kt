@@ -49,7 +49,7 @@ class Producer(val template:KafkaTemplate<Int,String>) {
         val quotes = Flux.fromStream(Stream.generate(faker.hobbit()::quote))
 
         Flux.zip(interval,quotes)
-            .map {it -> template.send("hobbit",faker.random().nextInt(101),it.t2)}
+            .map {template.send("hobbit",faker.random().nextInt(101),it.t2)}
             .blockLast()
     }
 }
