@@ -1,7 +1,6 @@
 package com.sapientum8.kafka101
 
 import com.github.javafaker.Faker
-import lombok.RequiredArgsConstructor
 import org.apache.kafka.clients.admin.NewTopic
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.Serdes
